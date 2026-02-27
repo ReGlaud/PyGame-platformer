@@ -1,9 +1,26 @@
-import time
+import os
+import sys
 import pygame
 import random
 from os import*
-img_dir = path.join(path.dirname(__file__), 'img')
 
+def resource_path(relative_path):
+    """ Получает абсолютный путь к ресурсам (для PyInstaller) """
+    try:
+        # PyInstaller создает временную папку и хранит путь в _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+# ПРИМЕР ИСПОЛЬЗОВАНИЯ:
+# Вместо: img = pygame.image.load('img/фон.png')
+# Пишите:
+img_path = resource_path(os.path.join('img', 'фон.png'))
+img = pygame.image.load(img_path)
+
+img_dir = path.join(path.dirname(__file__), 'img')
 
 WIDTH = 600
 HEIGHT = 600
